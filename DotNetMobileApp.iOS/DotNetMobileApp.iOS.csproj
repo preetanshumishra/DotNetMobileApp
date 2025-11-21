@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0-ios</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
+    <RuntimeIdentifier>iossimulator-arm64</RuntimeIdentifier>
+    <MinimumOSVersion>14.0</MinimumOSVersion>
+    <ApplicationId>com.preetanshumishra.dotnetmobileapp</ApplicationId>
+    <ApplicationTitle>DotNetMobileApp</ApplicationTitle>
+    <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+    <ApplicationVersion>1</ApplicationVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DotNetMobileApp.Core\DotNetMobileApp.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <BundleResource Include="Resources/**/*" />
+  </ItemGroup>
+
+</Project>
