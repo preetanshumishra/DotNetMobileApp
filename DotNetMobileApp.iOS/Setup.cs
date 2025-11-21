@@ -8,12 +8,12 @@ namespace DotNetMobileApp.iOS
     {
         protected override ILoggerProvider? CreateLogProvider()
         {
-            throw new NotImplementedException();
+            return null;
         }
         
         protected override ILoggerFactory? CreateLogFactory()
         {
-            throw new NotImplementedException();
+            return null;
         }
     }
 }
