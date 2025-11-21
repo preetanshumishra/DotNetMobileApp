@@ -14,6 +14,8 @@ A native .NET mobile application for iOS and Android platforms using .NET 8.0 wi
 - Native Android development using Android Framework
 - Shared code library for cross-platform logic
 - Proper dependency management and project references
+- MvvmCross framework for MVVM pattern implementation
+- BaseViewModel for consistent ViewModel structure across platforms
 
 ## Requirements
 
@@ -47,6 +49,23 @@ dotnet build DotNetMobileApp.Android/DotNetMobileApp.Android.csproj
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+## Architecture
+
+### MVVM Pattern
+This project uses **MvvmCross 9.1.1** for implementing the MVVM (Model-View-ViewModel) pattern:
+
+- **ViewModels**: Located in `DotNetMobileApp.Core/ViewModels/`
+  - `BaseViewModel`: Abstract base class that all ViewModels inherit from
+  - `MainViewModel`: Example implementation demonstrating property binding and commands
+- **Models**: Business logic and data models in the Core project
+- **Views**: Platform-specific UI implementations in iOS and Android projects
+
+### Core Project
+Contains all shared logic, ViewModels, and business models that are referenced by both iOS and Android projects.
+
+### Platform-Specific Implementation
+Each platform (iOS and Android) has its own `Setup.cs` that initializes MvvmCross for that specific platform.
+
 ## Development
 
 This project uses native SDKs rather than MAUI, providing direct access to platform-specific APIs and optimized performance for each platform.
@@ -56,8 +75,52 @@ This project uses native SDKs rather than MAUI, providing direct access to platf
 - Lifecycle: `AppDelegate.cs`
 - UI: `ViewController.cs`
 - Resources: `Info.plist`
+- Setup: `Setup.cs` (MvvmCross initialization)
 
 ### Android
 - Entry point: `MainActivity.cs`
 - Manifest: `AndroidManifest.xml`
 - Resources: XML layouts and string definitions
+- Setup: `Setup.cs` (MvvmCross initialization)
+
+## ViewModels
+
+### BaseViewModel
+All ViewModels should inherit from `BaseViewModel` which provides:
+- `Title` property for view title binding
+- `IsLoading` property for loading state management
+- `InitializeAsync()` method for async initialization
+- Built-in property change notification via `SetProperty()`
+
+### Creating a New ViewModel
+```csharp
+public class MyViewModel : BaseViewModel
+{
+    private string _myProperty = string.Empty;
+
+    public string MyProperty
+    {
+        get => _myProperty;
+        set => SetProperty(ref _myProperty, value);
+    }
+
+    public IMvxCommand MyCommand { get; }
+
+    public MyViewModel()
+    {
+        Title = "My View";
+        MyCommand = new MvxCommand(ExecuteMyCommand);
+    }
+
+    private void ExecuteMyCommand()
+    {
+        // Command implementation
+    }
+}
+```
+
+## Dependencies
+
+- **MvvmCross 9.1.1**: MVVM framework for cross-platform development
+- **Microsoft.iOS**: Native iOS framework
+- **Microsoft.Android**: Native Android framework
