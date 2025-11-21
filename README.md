@@ -51,20 +51,54 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Architecture
 
-### MVVM Pattern
-This project uses **MvvmCross 9.1.1** for implementing the MVVM (Model-View-ViewModel) pattern:
+### MVVM Pattern with Dependency Injection
+This project uses **MvvmCross 9.1.1** for implementing the MVVM (Model-View-ViewModel) pattern with a sophisticated IoC (Inversion of Control) container:
 
+#### Core Components
 - **ViewModels**: Located in `DotNetMobileApp.Core/ViewModels/`
   - `BaseViewModel`: Abstract base class that all ViewModels inherit from
-  - `MainViewModel`: Example implementation demonstrating property binding and commands
-- **Models**: Business logic and data models in the Core project
-- **Views**: Platform-specific UI implementations in iOS and Android projects
+  - `MainViewModel`: Example implementation demonstrating dependency injection, property binding, and commands
+
+- **Services**: Located in `DotNetMobileApp.Core/Services/`
+  - **Contracts**: Interface definitions
+    - `ILoggerService`: Logging interface for debug output
+    - `IAnalyticsService`: Analytics tracking interface for event monitoring
+    - `IAppNavigationService`: Navigation interface for cross-view-model navigation
+  - **Implementations**: Concrete service implementations
+    - `LoggerService`: Debug output logging with multiple log levels
+    - `AnalyticsService`: Event tracking with properties and exception reporting
+  - Extensible architecture for adding more services
+
+- **Repositories**: Located in `DotNetMobileApp.Core/Repositories/`
+  - `IBaseRepository<T>`: Generic repository interface for data access patterns
+  - Easily extensible for domain-specific repositories
+
+#### App Initialization (App.cs)
+The `App.cs` class handles complex initialization in multiple stages:
+1. **RegisterCoreServices()**: Registers essential services with proper dependency ordering
+   - Logger service is registered first (other services depend on it)
+   - Analytics service depends on logger service
+2. **RegisterAutoServices()**: Auto-discovers and registers remaining services and repositories
+3. **RegisterViewModels()**: Prepares ViewModels with logging
+4. **App Start**: Sets MainViewModel as the entry point
+
+#### Dependency Injection
+All services and repositories are automatically injected into ViewModels via the MvvmCross IoC container:
+```csharp
+public MainViewModel(ILoggerService loggerService, IAnalyticsService analyticsService)
+{
+    // Services are automatically resolved and injected
+}
+```
 
 ### Core Project
-Contains all shared logic, ViewModels, and business models that are referenced by both iOS and Android projects.
+Contains all shared logic, ViewModels, Services, Repositories, and business models that are referenced by both iOS and Android projects.
 
 ### Platform-Specific Implementation
-Each platform (iOS and Android) has its own `Setup.cs` that initializes MvvmCross for that specific platform.
+Each platform (iOS and Android) has its own `Setup.cs` that:
+- Inherits from platform-specific MvxSetup<App>
+- Configures platform-specific logging providers
+- Initializes platform-specific services
 
 ## Development
 
