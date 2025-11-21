@@ -1,7 +1,7 @@
 namespace DotNetMobileApp.iOS
 {
-    [Register("ViewController")]
-    public class ViewController : UIViewController
+    [Register(nameof(MainViewController))]
+    public class MainViewController : UIViewController
     {
         private UILabel? _welcomeLabel;
         
