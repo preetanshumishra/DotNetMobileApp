@@ -73,7 +73,7 @@ This project uses native SDKs rather than MAUI, providing direct access to platf
 ### iOS
 - Entry point: `Main.cs`
 - Lifecycle: `AppDelegate.cs`
-- UI: `ViewController.cs`
+- UI: `MainViewController.cs`
 - Resources: `Info.plist`
 - Setup: `Setup.cs` (MvvmCross initialization)
 
