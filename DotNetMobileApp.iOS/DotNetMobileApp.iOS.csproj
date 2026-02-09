@@ -7,7 +7,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
     <RuntimeIdentifier>iossimulator-arm64</RuntimeIdentifier>
-    <MinimumOSVersion>14.0</MinimumOSVersion>
+    <MinimumOSVersion>16.0</MinimumOSVersion>
     <ApplicationId>com.preetanshumishra.dotnetmobileapp</ApplicationId>
     <ApplicationTitle>DotNetMobileApp</ApplicationTitle>
     <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>

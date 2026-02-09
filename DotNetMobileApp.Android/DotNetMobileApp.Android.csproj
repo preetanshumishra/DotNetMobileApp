@@ -9,8 +9,8 @@
     <ApplicationId>com.preetanshumishra.dotnetmobileapp</ApplicationId>
     <ApplicationVersion>1</ApplicationVersion>
     <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
-    <AndroidMinimumVersion>21</AndroidMinimumVersion>
-    <AndroidTargetSdkVersion>34</AndroidTargetSdkVersion>
+    <AndroidMinimumVersion>28</AndroidMinimumVersion>
+    <AndroidTargetSdkVersion>36</AndroidTargetSdkVersion>
     <AndroidUseAndroidX>true</AndroidUseAndroidX>
     <AndroidEnableMultidex>true</AndroidEnableMultidex>
   </PropertyGroup>
