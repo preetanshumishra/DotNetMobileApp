@@ -11,6 +11,7 @@
     <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
     <AndroidMinimumVersion>28</AndroidMinimumVersion>
     <AndroidTargetSdkVersion>36</AndroidTargetSdkVersion>
+    <SupportedOSPlatformVersion>28</SupportedOSPlatformVersion>
     <AndroidUseAndroidX>true</AndroidUseAndroidX>
     <AndroidEnableMultidex>true</AndroidEnableMultidex>
   </PropertyGroup>
