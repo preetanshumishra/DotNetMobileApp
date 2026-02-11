@@ -1,0 +1,48 @@
+name: Build DotNetMobileApp
+
+on:
+  push:
+    branches:
+      - master
+      - main
+      - develop
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build Core + Android + iOS
+    runs-on: macos-26
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 10 SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Cache NuGet packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: nuget-${{ runner.os }}-${{ hashFiles('**/*.csproj') }}
+          restore-keys: |
+            nuget-${{ runner.os }}-
+
+      - name: Install mobile workloads
+        run: dotnet workload install android ios
+
+      - name: Restore solution
+        run: dotnet restore DotNetMobileApp.sln
+
+      - name: Build Core
+        run: dotnet build DotNetMobileApp.Core/DotNetMobileApp.Core.csproj -c Release --no-restore
+
+      - name: Build Android
+        run: dotnet build DotNetMobileApp.Android/DotNetMobileApp.Android.csproj -c Release --no-restore
+
+      - name: Build iOS (simulator)
+        run: dotnet build DotNetMobileApp.iOS/DotNetMobileApp.iOS.csproj -c Release --no-restore

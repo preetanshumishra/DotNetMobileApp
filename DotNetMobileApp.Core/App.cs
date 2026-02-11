@@ -3,11 +3,13 @@ using DotNetMobileApp.Core.ViewModels;
 using DotNetMobileApp.Core.Services.Contracts;
 using DotNetMobileApp.Core.Services.Implementations;
 using MvvmCross.IoC;
+using System.Diagnostics.CodeAnalysis;
 
 namespace DotNetMobileApp.Core
 {
     public class App : MvxApplication
     {
+        [RequiresUnreferencedCode("Uses reflection-based registration for services/repositories.")]
         public override void Initialize()
         {
             // Register platform-independent services
@@ -43,6 +45,7 @@ namespace DotNetMobileApp.Core
             loggerService?.LogInfo("Core services initialized successfully");
         }
         
+        [RequiresUnreferencedCode("Uses reflection-based registration for services/repositories.")]
         private void RegisterAutoServices()
         {
             // Auto-register remaining services ending with "Service" that weren't manually registered
@@ -62,7 +65,7 @@ namespace DotNetMobileApp.Core
         {
             // All ViewModels are automatically registered via MvvmCross
             // but you can add specific configurations here if needed
-            var logger = MvxIoCProvider.Instance.Resolve<ILoggerService>();
+            var logger = MvxIoCProvider.Instance?.Resolve<ILoggerService>();
             logger?.LogInfo("ViewModels registered");
         }
     }
